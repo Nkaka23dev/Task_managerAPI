@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'authentication',
-    'drf_yasg',
+    'drf_yasg', 
 
 ] 
 SWAGGER_SETTINGS={
@@ -53,7 +53,6 @@ SWAGGER_SETTINGS={
             'type':'apiKey',
             'name':'Authorization',
             'in':'header'
-
         }
     }
 }

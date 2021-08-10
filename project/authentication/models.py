@@ -14,8 +14,6 @@ class UserManager(BaseUserManager):
         user=self.model(
             username=username,
             email=self.normalize_email(email),
-            access=access,
-            refresh=refresh
         ) 
         user.set_password(password) 
         user.save()
@@ -39,7 +37,8 @@ class User(AbstractBaseUser,PermissionsMixin):
     is_staff=models.BooleanField(default=False)
     create_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True) 
-
+    
+    EMAIL_FIELD = "email"
     USERNAME_FIELD='email'
     REQUIRED_FIELDS=['username'] 
     objects=UserManager()
@@ -47,13 +46,13 @@ class User(AbstractBaseUser,PermissionsMixin):
     def __str__(self):
         return self.email 
 
-    def tokens(self):
-        refresh=RefreshToken.for_user(self)
+    # def tokens(self):
+    #     refresh=RefreshToken.for_user(self)
 
-        return {
-            'refresh':str(refresh),
-            'access':str(refresh.access_token)
-            }
+    #     return {
+    #         "access_token":str(refresh.access_token),
+    #         "refresh_token":str(refresh)
+    #         }
         
            
 

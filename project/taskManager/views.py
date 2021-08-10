@@ -11,7 +11,7 @@ from rest_framework import permissions
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer 
-    # permission_classes=(permissions.IsAuthenticated,)
+    permission_classes=(permissions.IsAuthenticated,)
     filter_backends = [DjangoFilterBackend,SearchFilter] 
     filterset_fields = ['id', 'projectName',] 
     search_fields=['id', 'projectName','DateOfStart','projectSize']

@@ -11,6 +11,7 @@ from django.conf import settings
 import jwt 
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 class RegisterView(generics.GenericAPIView):
     serializer_class=RegisterSerializer
@@ -62,12 +63,12 @@ class VerifyEmail(views.APIView):
                 {'Error':'Invalid Token'},status=status.HTTP_400_BAD_REQUEST
             )  
 
-class LoginView(generics.GenericAPIView):
+class LoginView(TokenObtainPairView):
     serializer_class=LoginSerializer 
-    def post(self,request):
-        serializer=self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user_data=serializer.data
-        return Response({
-           'data':serializer.data 
-        },status=status.HTTP_200_OK)
+    # def post(self,request):
+    #     serializer=self.serializer_class(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     user_data=serializer.data
+    #     return Response({
+    #        'data':serializer.data 
+    #     },status=status.HTTP_200_OK)
