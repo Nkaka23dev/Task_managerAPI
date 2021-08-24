@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import django_heroku
 from pathlib import Path 
 from datetime import datetime,timedelta
 
@@ -157,5 +157,7 @@ EMAIL_USE_TLS=True
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587  
 EMAIL_HOST_USER='testsender1996@gmail.com'
-EMAIL_HOST_PASSWORD='isheja1994' 
+EMAIL_HOST_PASSWORD='isheja1994'  
+
+django_heroku.settings(locals())
 
