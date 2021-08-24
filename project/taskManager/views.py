@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Project
-from .serializers import ProjectSerializer
+from .models import Project,ClientLocation
+from .serializers import ProjectSerializer,ClientLocationSerializer
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend 
 from rest_framework.filters import SearchFilter 
@@ -14,5 +14,11 @@ class ProjectViewSet(viewsets.ModelViewSet):
     permission_classes=(permissions.IsAuthenticated,)
     filter_backends = [DjangoFilterBackend,SearchFilter] 
     filterset_fields = ['id', 'projectName',] 
-    search_fields=['id', 'projectName','DateOfStart','projectSize']
+    search_fields=['id', 'projectName','DateOfStart','projectSize'] 
+
+class ClientLocationViewSet(viewsets.ModelViewSet):
+    queryset=ClientLocation.objects.all() 
+    serializer_class=ClientLocationSerializer 
+    permission_classes=(permissions.IsAuthenticated,)
+
 

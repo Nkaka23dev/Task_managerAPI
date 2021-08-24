@@ -65,8 +65,15 @@ class LoginSerializer(EmailTokenObtainSerializer):
     def validate(self,attrs):
         data = super().validate(attrs)
         refresh = self.get_token(self.user)
+        if not self.user:
+            raise exceptions.AuthenticationFailed("Invalid credentials, Please try again.") 
+        if not self.user.is_verified:
+            raise exceptions.AuthenticationFailed("User not verified") 
+        if not self.user.is_active:
+            raise exceptions.AuthenticationFailed("User not activated.")
         data['username'] = self.user.username
         data['email'] = self.user.email 
+        data['is_staff']=self.user.is_staff
         data["refresh"] = str(refresh)
         data["access"] = str(refresh.access_token) 
         return data
